@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8" />
+<title>Test React!</title>
+<script src="https://cdn.staticfile.org/react/16.4.0/umd/react.development.js"></script>
+<script src="https://cdn.staticfile.org/react-dom/16.4.0/umd/react-dom.development.js"></script>
+<script src="https://cdn.staticfile.org/babel-standalone/6.26.0/babel.min.js"></script>
+</head>
+<body>
+
+<div id="example"></div>
+<script type="text/babel">
+
+function UserInfo(props) {
+  return <h1>Welcome back! {props.name}</h1>;
+}
+
+class GuestInfo extends React.Component {
+	constructor(props) {
+		super(props);
+	}
+
+	render() {
+		return (
+			<h1>Hi Guest: {this.props.info}</h1>
+		)
+	}
+}
+
+class LoginButton extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+
+  render() {
+    return (
+      <button onClick={this.props.onButtonClicked}>
+        Login
+      </button>
+    )
+  }
+}
+
+class LogoutButton extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+
+  render() {
+    return (
+      <button onClick={this.props.onButtonClicked}>
+        Logout
+      </button>
+    )
+  }
+}
+
+class LoginControl extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {isLoggedIn: false};
+    this.handleLoginButtonClick = this.onLoginButtonClicked.bind(this);
+    this.handleLogoutButtonClick = this.onLogoutButtonClicked.bind(this);
+  }
+
+  onLoginButtonClicked() {
+    this.setState({isLoggedIn: true});
+  }
+
+  onLogoutButtonClicked() {
+    this.setState({isLoggedIn: false});
+  }
+
+  render() {
+    const isLoggedIn = this.state.isLoggedIn;
+    let button;
+
+    if (isLoggedIn) {
+      button = <LogoutButton onButtonClicked={this.handleLogoutButtonClick} />
+    } else {
+      button = <LoginButton onButtonClicked={this.handleLoginButtonClick} />
+    }
+
+    return (
+      <div>
+        <Greeting isLoggedIn={isLoggedIn} />
+        {button}
+      </div>
+    );
+  }
+}
+
+function Greeting(props) {
+  const isLoggedIn = props.isLoggedIn;
+  if (isLoggedIn) {
+    return <UserInfo name={"John"}/>;
+  }
+  return <GuestInfo info={"Please login!"} />;
+}
+
+ReactDOM.render(
+  <LoginControl />,
+  document.getElementById('example')
+);
+</script>
+
+</body>
+</html>

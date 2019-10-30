@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8" />
+<title>Test React!</title>
+<script src="https://cdn.staticfile.org/react/16.4.0/umd/react.development.js"></script>
+<script src="https://cdn.staticfile.org/react-dom/16.4.0/umd/react-dom.development.js"></script>
+<script src="https://cdn.staticfile.org/babel-standalone/6.26.0/babel.min.js"></script>
+</head>
+<body>
+
+<div id="example"></div>
+<script type="text/babel">
+
+class ToggleButton extends React.Component{
+	constructor(props) {
+		super(props);
+		this.state = {
+			isToggleOn: true
+		};
+
+		this.handleClick = this.onButtonClicked.bind(this);
+	}
+
+	onButtonClicked(value, e) {
+		console.log(value);
+		this.setState(preState => ({
+			isToggleOn: !preState.isToggleOn
+		}));
+	}
+
+	render() {
+		return (
+			<div>
+				{
+					// Narrow function   e as the second params will be shown
+				}
+				<button onClick={(e) => this.handleClick("Button2", e)}>{ this.state.isToggleOn ? 'ON' : 'OFF'}</button>
+
+				{
+					// Fuction.prototype.bind   e as the second params will be hide
+				}
+				<button onClick={this.handleClick.bind(this, "Button1")}>{ this.state.isToggleOn ? 'ON' : 'OFF'}</button>
+			</div>
+		)
+	}
+}
+
+ReactDOM.render(
+	<ToggleButton />,
+	document.getElementById('example')
+)
+
+</script>
+
+</body>
+</html>

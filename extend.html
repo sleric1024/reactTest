@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8" />
+<title>Test React!</title>
+<script src="https://cdn.staticfile.org/react/16.4.0/umd/react.development.js"></script>
+<script src="https://cdn.staticfile.org/react-dom/16.4.0/umd/react-dom.development.js"></script>
+<script src="https://cdn.staticfile.org/babel-standalone/6.26.0/babel.min.js"></script>
+</head>
+<body>
+
+<div id="example"></div>
+<style>
+.FancyBorder {
+  padding: 10px 10px;
+  border: 10px solid;
+}
+
+.FancyBorder-blue {
+  border-color: blue;
+}
+
+.Dialog-title {
+  margin: 0;
+  font-family: sans-serif;
+}
+
+.Dialog-message {
+  font-size: larger;
+}
+</style>
+
+<script type="text/babel">
+
+class FancyBorder extends React.Component {
+	constructor(props) {
+		super(props);
+	}
+
+	render() {
+		return (
+			<div className={'FancyBorder FancyBorder-' + this.props.color}>
+				{this.props.children}
+			</div>
+		);
+	}
+}
+
+class Dialog extends React.Component {
+	constructor(props) {
+		super(props);
+	}
+
+	render() {
+		return (
+			<FancyBorder color="blue">
+				<h1 className="Dialog-title">{this.props.title}</h1>
+				<p className="Dialog-Message">{this.props.message}</p>
+			</FancyBorder>
+		);
+	}
+}
+
+class WelcomeDialog extends React.Component {
+	constructor(props) {
+		super(props);
+	}
+
+	render() {
+		return (
+			<Dialog title="Welcome"
+							message="Thank you for visiting!" />
+		);
+	}
+}
+
+ReactDOM.render(
+	<WelcomeDialog />,
+	document.getElementById('example')
+);
+
+</script>
+
+</body>
+</html>
